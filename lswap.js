@@ -279,18 +279,21 @@ function nieuwWoord() {
    ========================= */
    
 function showMessage(text, html = "", callback = null) {
-    const box = document.getElementById("messageBox");
+    const textBox = document.getElementById("messageText");
+    const extraBox = document.getElementById("messageExtra");
 
-    box.querySelector(".message-text").innerHTML = text;
-    box.querySelector(".message-html").innerHTML = html;
+    if (textBox) textBox.innerHTML = text;
 
-    box.classList.add("visible");
+    if (extraBox) {
+        extraBox.innerHTML = html;
+        extraBox.style.display = html ? "block" : "none";
+    }
 
-    // callback NA het renderen
     if (callback) {
-        setTimeout(() => callback(), 0);
+        setTimeout(callback, 0);
     }
 }
+
 
 
 function clearMessage() {
@@ -302,11 +305,29 @@ function nieuwSpel() {
 	  t("confirmNewGame"),
 	  `
 		<div class="confirm-box">
-			<button class="btn btn-green">Ja</button>
-			<button class="btn btn-red">Nee</button>
+			<button id="jaBtn" class="btn btn-green">Ja</button>
+			<button id="neeBtn" class="btn btn-red">Nee</button>
 		</div>
-	  `
+	  `,
+	  () => {
+		document.getElementById("jaBtn").onclick = () => {
+	
+		  buttons.forEach(b => b.classList.remove("active"));
+		  btn.classList.add("active");
+
+		  updatetopScoreDisplay();
+		  maakGrid();
+
+		  showMessage(t("defaultMessage"));
+		};
+
+		document.getElementById("neeBtn").onclick = () => {
+		  showMessage(t("defaultMessage"));
+		};
+	  }
 	);
+
+
 }
 
 function startNewGame() {
@@ -329,9 +350,7 @@ function initToolbar() {
       const newLevel = Number(btn.dataset.level);
       if (level === newLevel) return;
 
-
-
-document.getElementById("confirmYes").onclick = () => {
+document.getElementById("jaBtn").onclick = () => {
     level = newLevel;
 
     buttons.forEach(b => b.classList.remove("active"));
@@ -343,14 +362,10 @@ document.getElementById("confirmYes").onclick = () => {
 	showMessage(t("defaultMessage"));
 };
 
-document.getElementById("confirmNo").onclick = clearMessage;
+document.getElementById("neeBtn").onclick = clearMessage;
     });
   });
 }
-
-
-
-
 
 /*  MODAL   */
 

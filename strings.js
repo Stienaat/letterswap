@@ -9,9 +9,7 @@ const translations = {
     time: "Tijd",
     Points: "Score",
     top: "Topscore",
-	hints: "Max aantal toegelaten hints is bereikt!",
-  
-    close: "Sluiten",
+	hints: "Max aantal toegelaten hints is bereikt!", 
     language: "Kies een taal", 
     confirmNewGame: "Wil je een nieuw spel?",
     confirmYes: "Ja",
@@ -36,17 +34,12 @@ const translations = {
   },
 
   en: {
-    title: "Letter wissel",
-  
+     
     time: "Time",
     points: "Pts",
     top: "Top",
     howToPlay: "How to play?",
-    infoHint: " →  Click info.",
-    close: "Close",
     language: "Language",
-    footer: "© 2026 FS creations. All rights reserved. Not for commercial use.",
-
     confirmNewGame: "Do you want to start a new game?",
     confirmYes: "Yes",
     confirmNo: "No",
@@ -70,17 +63,11 @@ const translations = {
   },
 
   fr: {
-    title: "Letter wissel",
-    level: "Niv",
+  
     time: "Temps",
     points: "Pts",
     top: "Top",
-    howToPlay: "Comment jouer?",
-    infoHint: " →  Cliquez sur info.",
-    close: "Fermer",
     language: "Langue",
-    footer: "© 2026 FS creations. Tous droits réservés. Pas pour un usage commercial.",
-
     confirmNewGame: "Voulez-vous commencer une nouvelle partie?",
     confirmYes: "Oui",
     confirmNo: "Non",
@@ -104,17 +91,11 @@ const translations = {
   },
 
   de: {
-    title: "Letter wissel",
-    level: "Stufe",
+
     time: "Zeit",
     points: "Pkt",
     top: "Top",
-    howToPlay: "Wie spielt man das?",
-    infoHint: "Klicken Sie auf Info für mehr Erklärung.",
-    close: "Schließen",
     language: "Sprache",
-    footer: "© 2026 FS creations. Alle Rechte vorbehalten. Nicht für kommerzielle Nutzung.",
-
     confirmNewGame: "Möchten Sie ein neues Spiel starten?",
     confirmYes: "Ja",
     confirmNo: "Nein",
