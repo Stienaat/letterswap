@@ -224,30 +224,50 @@ function renderGrid() {
                 cell.classList.add("hint");
             }
 
+            // --- Pointer-based input ---
             let pressTimer = null;
+            let longPressTriggered = false;
+            let startX = 0;
+            let startY = 0;
 
-            // Desktop
-			cell.onmousedown = startPress;
-			cell.onmouseup = endPress;
-			cell.onmouseleave = endPress;
+            cell.onpointerdown = (e) => {
+                longPressTriggered = false;
 
-			// Mobile
-			cell.ontouchstart = startPress;
-			cell.ontouchend = endPress;
-			cell.ontouchcancel = endPress;
+                // Start longpress timer
+                pressTimer = setTimeout(() => {
+                    longPressTriggered = true;
+                    onLongPress(r, c);
+                }, 600);
 
-	function startPress(e) {
-		
-		pressTimer = setTimeout(() => {
-			onLongPress(r, c);
-		}, 600);
-	}
+                // Startpositie voor swipe
+                startX = e.clientX;
+                startY = e.clientY;
+            };
 
-	function endPress() {
-		clearTimeout(pressTimer);
-	}
+            cell.onpointermove = (e) => {
+                if (!pressTimer) return;
 
-            cell.onclick = () => {
+                const dx = Math.abs(e.clientX - startX);
+                const dy = Math.abs(e.clientY - startY);
+
+                // Beweging → longpress annuleren
+                if (dx > 5 || dy > 5) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+            };
+
+            cell.onpointerup = () => {
+                // Timer stoppen
+                if (pressTimer) {
+                    clearTimeout(pressTimer);
+                    pressTimer = null;
+                }
+
+                // Longpress? → niets meer doen
+                if (longPressTriggered) return;
+
+                // Normale click → swap
                 handleCellClick(r, c);
                 scheduleSave();
                 clearMessage();
