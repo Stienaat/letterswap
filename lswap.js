@@ -237,7 +237,7 @@ function renderGrid() {
 			cell.ontouchcancel = endPress;
 
 	function startPress(e) {
-		e.preventDefault(); // cruciaal op mobile
+		
 		pressTimer = setTimeout(() => {
 			onLongPress(r, c);
 		}, 600);
