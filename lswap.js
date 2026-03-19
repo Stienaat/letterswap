@@ -3,7 +3,7 @@
    ------------------------------------------------------------ */
 
 const WORD_LENGTH = 10;
-const TOTAL_ROUNDS = 10;
+const TOTAL_ROUNDS = 11;
 
 let debugVisible = false;
 
@@ -151,7 +151,9 @@ function kiesNieuwWoord() {
    ------------------------------------------------------------ */
 
 function startRonde() {
+		 if (round > 10) return; 
     currentWord = kiesNieuwWoord();
+
     const solutionWord = currentWord.split("");
 
     hintCells = Array(WORD_LENGTH).fill(false);
@@ -224,19 +226,26 @@ function renderGrid() {
 
             let pressTimer = null;
 
-            cell.onmousedown = () => {
-                pressTimer = setTimeout(() => {
-                    onLongPress(r, c);
-                }, 600);
-            };
+            // Desktop
+			cell.onmousedown = startPress;
+			cell.onmouseup = endPress;
+			cell.onmouseleave = endPress;
 
-            cell.onmouseup = () => {
-                clearTimeout(pressTimer);
-            };
+			// Mobile
+			cell.ontouchstart = startPress;
+			cell.ontouchend = endPress;
+			cell.ontouchcancel = endPress;
 
-            cell.onmouseleave = () => {
-                clearTimeout(pressTimer);
-            };
+	function startPress(e) {
+		e.preventDefault(); // cruciaal op mobile
+		pressTimer = setTimeout(() => {
+			onLongPress(r, c);
+		}, 600);
+	}
+
+	function endPress() {
+		clearTimeout(pressTimer);
+	}
 
             cell.onclick = () => {
                 handleCellClick(r, c);
@@ -647,7 +656,7 @@ function toonOplossing() {
    ------------------------------------------------------------ */
 
 function checkEindeSpel() {
-    if (round > TOTAL_ROUNDS) {
+    if (round >= TOTAL_ROUNDS) {
         endGame();
     }
 }
@@ -666,7 +675,9 @@ function endGame() {
     timerGestart = false;
 
     updateTopScoreIfNeeded();
+
     startFireworks();
+
 }
 
 /* ------------------------------------------------------------
@@ -743,6 +754,7 @@ function clearHighlights() {
    ------------------------------------------------------------ */
 
 function startFireworks(done) {
+
     const canvas = document.getElementById("fireworksCanvas");
     const ctx = canvas.getContext("2d");
 
@@ -816,7 +828,7 @@ function startFireworks(done) {
         }
     }
 
-    let count = 0;
+    let count = 1;
     const interval = setInterval(() => {
         createExplosion();
         count++;
@@ -826,7 +838,15 @@ function startFireworks(done) {
         }
     }, 300);
 
-    update();
+	nieuwSpel()
+		grid = [
+				["", "", "", "", "", "", ""],
+				["", "", "", "", "", "", ""]
+			];
+		renderGrid();	
+	
+		update();
+	
 }
 
 /* ------------------------------------------------------------
