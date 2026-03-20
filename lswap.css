@@ -32,17 +32,18 @@ body {
 .toolbar {
   display: flex;
   justify-content: space-between;
-  gap: 8px 4px;
-  padding: 0 30px;
+  padding-right: 25px;
+  padding-left: 15px;
 }
 
 .tooltekst {
-  margin: 5px;
-  height: 40px;
-  font-size: 13px;
-  border-radius: 6px;
-  background: transparent;
-  color: black;
+    display: inline-block;
+    width: 40px;        /* jouw huidige breedte */
+    text-align: center;
+    white-space: normal;
+    line-height: 1.1;
+	font-size: 13px;
+	margin: 5px;
 }
 
 /* ---------------------------------------------------------
@@ -59,8 +60,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  margin: 15px;
+  gap: 45px;
+  margin: 20px;
   height: 28px;
   width: min(90vw, 300px);
 }

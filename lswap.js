@@ -7,6 +7,7 @@ const TOTAL_ROUNDS = 11;
 
 let debugVisible = false;
 
+/*DEBUGGER*/
 function toggleDebug() {
     debugVisible = !debugVisible;
     document.getElementById("debugPanel").style.display = debugVisible ? "block" : "none";
@@ -28,7 +29,7 @@ function updateDebugPanel() {
         currentWord: ${currentWord}<br>
         gridTop: ${grid[0].join("")}<br>
         gridBottom: ${grid[1].join("")}<br>
-        hints: ${hintCells.map(h => h ? "1" : "0").join("")}<br>
+        currentLanguage: ${currentLang}<br>
         foundWords: ${foundWords.length}<br>
     `;
 }
@@ -153,7 +154,6 @@ function kiesNieuwWoord() {
 function startRonde() {
 		 if (round > 10) return; 
     currentWord = kiesNieuwWoord();
-
     const solutionWord = currentWord.split("");
 
     hintCells = Array(WORD_LENGTH).fill(false);
@@ -171,8 +171,7 @@ function startRonde() {
 
 function startGame() {
     const loaded = loadGame();
-    console.log("STARTGAME: loadGame returned", loaded);
-
+ 
     if (!loaded) {
         round = 1;
         strafpunten = 0;
@@ -328,14 +327,15 @@ function swap(r1, c1, r2, c2) {
 function checkSolved() {
     const bottom = grid[1].join("");
 
-    checkEindeSpel();
 
     if (bottom === currentWord) {
         addWordToBoard(currentWord, "green");
-        round++;
+		round++;
         scheduleSave();
+		longPressCount = 0;
         startRonde();
     }
+	    checkEindeSpel();
 }
 
 function markCorrect() {
@@ -580,6 +580,8 @@ async function switchLanguage(langCode) {
     startNewGame();
 }
 
+
+
 /* ------------------------------------------------------------
    13. STRAFPUNTEN / SCORE
    ------------------------------------------------------------ */
@@ -646,6 +648,8 @@ function updateTopScoreIfNeeded() {
    ------------------------------------------------------------ */
 
 function joker() {
+	
+  console.log("joker() START, longPressCount =", longPressCount);
     strafpunten += 5;
     longPressCount = 0;
     updateStrafpunten();
@@ -655,8 +659,8 @@ function joker() {
 function toonOplossing() {
     strafpunten += 10;
     updateStrafpunten();
-    longPressCount = 0;
-    round++;
+       round++;
+	longPressCount = 0;
     checkEindeSpel();
 
     addWordToBoard(currentWord, "red");
@@ -887,6 +891,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     loadTopScore();
     startGame();
 });
+
+/*DEBUGGER*/
 
 window.addEventListener("keydown", (e) => {
     if (e.key === "d" || e.key === "D") {
