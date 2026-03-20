@@ -1,8 +1,8 @@
 {
   "name": "Letterswap",
   "short_name": "Letterswap",
-  "start_url": "/Letterswap/index.html",
-  "scope": "/Letterswap/",
+  "start_url": "/letterswap/index.html",
+  "scope": "/letterswap/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
