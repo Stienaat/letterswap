@@ -1,4 +1,4 @@
-const CACHE_NAME = "Letterswap-v1";
+const CACHE_NAME = "Letterswap-v2";
 
 const FILES_TO_CACHE = [
   "./",
